@@ -3,7 +3,8 @@
 //  Yelp
 //
 //  Created by Timothy Lee on 4/23/15.
-//  Copyright (c) 2015 Timothy Lee. All rights reserved.
+//  Implemented by Douglas Li 2/02/16
+//  Copyright © 2016 Douglas Li All rights reserved.
 //
 
 import UIKit

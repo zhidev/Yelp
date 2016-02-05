@@ -3,21 +3,32 @@
 //  Yelp
 //
 //  Created by Timothy Lee on 4/23/15.
-//  Copyright (c) 2015 Timothy Lee. All rights reserved.
+//  Implemented by Douglas Li 2/02/16
+//  Copyright (c) 2016 Douglas Li. All rights reserved.
 //
 
 import UIKit
 
-class BusinessesViewController: UIViewController {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var businesses: [Business]!
+    var businesses: [Business]!	
+    @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
+        
+        
         Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
-        
+            self.tableView.reloadData()
+            
+            
             for business in businesses {
                 print(business.name!)
                 print(business.address!)
@@ -50,5 +61,18 @@ class BusinessesViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if businesses != nil {
+            return businesses!.count
+        } else{
+            return 0
+        }
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("BusinessCell", forIndexPath:  indexPath) as! BusinessCell
+        cell.business = businesses[indexPath.row]
+        return cell
+    }
+    
 
 }
