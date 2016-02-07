@@ -114,7 +114,13 @@
                             </tableView>
                         </subviews>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp" id="wpg-AG-zFu"/>
+                    <navigationItem key="navigationItem" title="Yelp" id="wpg-AG-zFu">
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="search" id="TUt-VY-OnK">
+                            <connections>
+                                <action selector="openSearch:" destination="2xI-yr-O5N" id="CXY-iv-fy2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="tGW-ID-fho" id="8lA-o0-QMO"/>
                     </connections>

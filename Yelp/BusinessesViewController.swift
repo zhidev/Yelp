@@ -9,15 +9,30 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     var businesses: [Business]!	
     @IBOutlet var tableView: UITableView!
+    var filteredBusinesses: [Business]!
+    
+    
+    var searchBar: UISearchBar?
+    var searchController: UISearchController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        searchBar = UISearchBar()
+        searchBar!.sizeToFit()
         
+        searchController = UISearchController(searchResultsController: nil)
+        
+        /*self.searchController.searchResultsUpdater = self
+        self.searchController.delegate = self
+        self.searchController.searchBar.delegate = self
+        */
+        navigationItem.titleView = searchBar
+        
+        searchBar!.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -26,6 +41,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         
         Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
+            self.filteredBusinesses = self.businesses
+
             self.tableView.reloadData()
             
             
@@ -52,27 +69,46 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         // Dispose of any resources that can be recreated.
     }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if businesses != nil {
-            return businesses!.count
+        if filteredBusinesses != nil {
+            return filteredBusinesses!.count
         } else{
             return 0
         }
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BusinessCell", forIndexPath:  indexPath) as! BusinessCell
-        cell.business = businesses[indexPath.row]
+        cell.business = filteredBusinesses[indexPath.row]
         return cell
     }
     
+    @IBAction func openSearch(sender: AnyObject) {
+        searchBar!.hidden = !searchBar!.hidden
+        if searchBar!.hidden == false{
+            searchBar?.becomeFirstResponder()
+        }else{
+            searchBar?.resignFirstResponder()
+        }
+    }
+    
 
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if businesses == nil {
+            businesses = filteredBusinesses
+        }
+        if let searchText = searchBar.text {
+            if(searchText == "") {
+                filteredBusinesses = businesses
+                tableView.reloadData()
+            } else {
+                filteredBusinesses = searchText.isEmpty ? businesses : businesses?.filter({ (business:Business) -> Bool in
+                    business.name!.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+                });
+                tableView.reloadData()
+            }
+        }
+    }
+    
 }
