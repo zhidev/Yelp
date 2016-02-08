@@ -123,11 +123,115 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="tGW-ID-fho" id="8lA-o0-QMO"/>
+                        <segue destination="OQp-hO-2J3" kind="push" identifier="detailed" id="4uf-IO-a5q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1449" y="255"/>
+            <point key="canvasLocation" x="1298" y="255"/>
+        </scene>
+        <!--Detailed View Controller-->
+        <scene sceneID="dIF-tu-adt">
+            <objects>
+                <viewController id="OQp-hO-2J3" customClass="DetailedViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LXH-GD-CAs"/>
+                        <viewControllerLayoutGuide type="bottom" id="7KL-bM-dys"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cEx-wT-IRW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHH-5D-JzW">
+                                <rect key="frame" x="45" y="74" width="230" height="131"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VrJ-js-NZQ">
+                                <rect key="frame" x="138" y="211" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7KT-4j-qpZ">
+                                <rect key="frame" x="129" y="240" width="63" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZA8-3n-WKd">
+                                <rect key="frame" x="20" y="276" width="83" height="15"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="# Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pK6-Eh-RGv">
+                                <rect key="frame" x="22" y="299" width="78" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BVk-zJ-vpp">
+                                <rect key="frame" x="59" y="361" width="203" height="80"/>
+                                <color key="backgroundColor" red="0.7348477187619048" green="0.11865963725256903" blue="0.039450023894914969" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Click to access this yelp page">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="i01-Ew-3iP" kind="push" identifier="yelpsegue" id="ZGp-2C-pEP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="pK6-Eh-RGv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ZA8-3n-WKd" secondAttribute="bottom" constant="8" id="74b-mH-e2D"/>
+                            <constraint firstItem="7KT-4j-qpZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VrJ-js-NZQ" secondAttribute="bottom" constant="8" id="Hqy-Kr-m7Z"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7KT-4j-qpZ" secondAttribute="trailing" constant="20" id="Pog-8w-CfX"/>
+                            <constraint firstItem="VrJ-js-NZQ" firstAttribute="centerX" secondItem="cEx-wT-IRW" secondAttribute="centerX" id="YAM-ve-7tn"/>
+                            <constraint firstItem="7KT-4j-qpZ" firstAttribute="centerX" secondItem="cEx-wT-IRW" secondAttribute="centerX" id="bru-j0-GSM"/>
+                            <constraint firstAttribute="trailing" secondItem="uHH-5D-JzW" secondAttribute="trailing" constant="45" id="bw9-dY-qe0"/>
+                            <constraint firstItem="uHH-5D-JzW" firstAttribute="leading" secondItem="cEx-wT-IRW" secondAttribute="leading" constant="45" id="eXf-5v-r2A"/>
+                            <constraint firstItem="VrJ-js-NZQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="uHH-5D-JzW" secondAttribute="bottom" constant="6" id="eoE-jr-FZD"/>
+                            <constraint firstItem="7KT-4j-qpZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cEx-wT-IRW" secondAttribute="leading" constant="20" id="wfp-Q6-F9R"/>
+                            <constraint firstItem="uHH-5D-JzW" firstAttribute="top" secondItem="LXH-GD-CAs" secondAttribute="bottom" constant="10" id="zII-3B-uxY"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="mfC-EL-Tib"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="7KT-4j-qpZ" id="FPB-09-q6U"/>
+                        <outlet property="businessImage" destination="uHH-5D-JzW" id="hUe-Xm-sgH"/>
+                        <outlet property="buttonImage" destination="BVk-zJ-vpp" id="ij0-Gk-LO2"/>
+                        <outlet property="nameLabel" destination="VrJ-js-NZQ" id="DB7-Pb-oNc"/>
+                        <outlet property="reviewLabel" destination="pK6-Eh-RGv" id="7rR-5t-A30"/>
+                        <outlet property="reviewView" destination="ZA8-3n-WKd" id="Ps6-2p-GAc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G4N-Ed-jnz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1675" y="255"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="0yw-1u-XC3">
+            <objects>
+                <viewController id="i01-Ew-3iP" customClass="WebViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QK8-01-l79"/>
+                        <viewControllerLayoutGuide type="bottom" id="Y2N-tO-UEB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bpb-Ul-hAf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qxu-LW-bcc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mtW-hT-ZfN"/>
+                    <connections>
+                        <outlet property="yelpView" destination="Qxu-LW-bcc" id="3ZK-Jk-h5j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="op0-0L-oBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2067" y="255"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XrA-eL-2nc">

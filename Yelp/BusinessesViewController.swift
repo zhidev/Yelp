@@ -39,7 +39,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.estimatedRowHeight = 120
         
         
-        Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm("", completion: { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.filteredBusinesses = self.businesses
 
@@ -83,6 +83,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("detailed", sender: indexPath)
+    }
+    
     @IBAction func openSearch(sender: AnyObject) {
         searchBar!.hidden = !searchBar!.hidden
         if searchBar!.hidden == false{
@@ -110,5 +114,13 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
     }
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "detailed"{
+            let indexPath = sender
+            let detailedVC = segue.destinationViewController as! DetailedViewController
+            let selected = filteredBusinesses![indexPath!.row]
+            detailedVC.dbusiness = selected
+            print("detailed potato")
+        }
+    }
 }

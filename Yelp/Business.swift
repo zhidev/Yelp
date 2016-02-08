@@ -18,6 +18,9 @@ class Business: NSObject {
     let ratingImageURL: NSURL?
     let reviewCount: NSNumber?
     
+    
+    let websiteURL: NSURL?
+    
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
         
@@ -71,6 +74,13 @@ class Business: NSObject {
             ratingImageURL = NSURL(string: ratingImageURLString!)
         } else {
             ratingImageURL = nil
+        }
+        
+        let webURL = dictionary["url"] as? String
+        if webURL != nil{
+            websiteURL = NSURL(string: webURL!)
+        } else{
+            websiteURL = nil
         }
         
         reviewCount = dictionary["review_count"] as? NSNumber

@@ -24,6 +24,8 @@ class BusinessCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     
     
+    
+    
     var business: Business! {
         didSet{
             nameLabel.text = business.name
