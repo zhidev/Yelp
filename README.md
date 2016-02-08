@@ -2,7 +2,7 @@
 
 Yelp is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: 2 hours spent in total
+Time spent: 4 hours spent in total
 
 ## User Stories
 
@@ -15,24 +15,24 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [ ] Search results page
-   - [ ] Infinite scroll for restaurant results.
-   - [ ] Implement map view of restaurant results.
-- [ ] Implement the restaurant detail page.
+- [ ] Infinite scroll for restaurant results.
+- [ ] Implement map view of restaurant results.
+- [x] Implement the restaurant detail page.
 
 The following **additional** features are implemented:
 
 - [ ] List anything else that you can get done to improve the app functionality!
-
+- [x] WebView connecting to yelp page from detail page
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. [s] Load yelp reviews in detaled page through a scroll view[/s] google says its not possible to load more than 1 
+2. Allow search to be more extensive
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/BrcoYur.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
