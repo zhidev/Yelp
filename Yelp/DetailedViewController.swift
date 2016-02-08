@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MapKit
 class DetailedViewController: UIViewController {
 
     var dbusiness: Business!
@@ -18,6 +18,7 @@ class DetailedViewController: UIViewController {
     @IBOutlet var buttonImage: UIButton!
     @IBOutlet var reviewView: UIImageView!
     @IBOutlet var reviewLabel: UILabel!
+    @IBOutlet var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,13 @@ class DetailedViewController: UIViewController {
         reviewView.setImageWithURL(dbusiness.ratingImageURL!)
         reviewLabel.text = "\(dbusiness.reviewCount!) Reviews"
         //buttonImage.setImage(businessImage.image, forState: UIControlState.Normal)
+        
+        print("latitude: \(dbusiness.latitude) longitude: \(dbusiness.longitude)")
+        
+        let centerLocation = CLLocation(latitude: dbusiness.latitude!, longitude: dbusiness.longitude!)
+        goToLocation(centerLocation)
+        
+        
         print("Potato: \(dbusiness.name)")
         print("URL: \(dbusiness.websiteURL)")
     }
@@ -54,5 +62,11 @@ class DetailedViewController: UIViewController {
             webVC.websiteURL = dbusiness.websiteURL!
         }
     }
-
+    
+    
+    func goToLocation(location: CLLocation) {
+        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let region = MKCoordinateRegionMake(location.coordinate, span)
+        mapView.setRegion(region, animated: false)
+    }
 }

@@ -158,16 +158,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZA8-3n-WKd">
-                                <rect key="frame" x="20" y="276" width="83" height="15"/>
+                                <rect key="frame" x="20" y="407" width="83" height="15"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="# Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pK6-Eh-RGv">
-                                <rect key="frame" x="22" y="299" width="78" height="21"/>
+                                <rect key="frame" x="22" y="430" width="78" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BVk-zJ-vpp">
-                                <rect key="frame" x="59" y="361" width="203" height="80"/>
+                                <rect key="frame" x="59" y="468" width="203" height="80"/>
                                 <color key="backgroundColor" red="0.7348477187619048" green="0.11865963725256903" blue="0.039450023894914969" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Click to access this yelp page">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -176,6 +176,9 @@
                                     <segue destination="i01-Ew-3iP" kind="push" identifier="yelpsegue" id="ZGp-2C-pEP"/>
                                 </connections>
                             </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1go-U5-55J">
+                                <rect key="frame" x="22" y="271" width="161" height="128"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -196,6 +199,7 @@
                         <outlet property="addressLabel" destination="7KT-4j-qpZ" id="FPB-09-q6U"/>
                         <outlet property="businessImage" destination="uHH-5D-JzW" id="hUe-Xm-sgH"/>
                         <outlet property="buttonImage" destination="BVk-zJ-vpp" id="ij0-Gk-LO2"/>
+                        <outlet property="mapView" destination="1go-U5-55J" id="DMV-XZ-fWu"/>
                         <outlet property="nameLabel" destination="VrJ-js-NZQ" id="DB7-Pb-oNc"/>
                         <outlet property="reviewLabel" destination="pK6-Eh-RGv" id="7rR-5t-A30"/>
                         <outlet property="reviewView" destination="ZA8-3n-WKd" id="Ps6-2p-GAc"/>

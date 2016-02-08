@@ -20,6 +20,9 @@ class Business: NSObject {
     
     
     let websiteURL: NSURL?
+    var longitude: Double?
+    var latitude: Double?
+    /*var coordinate: NSDictionary?*/
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
@@ -46,6 +49,18 @@ class Business: NSObject {
                 }
                 address += neighborhoods![0] as! String
             }
+            
+            let coordinates = location!["coordinate"] as? NSDictionary
+            if coordinates != nil {
+                let lat = coordinates!["latitude"] as? Double
+                let long = coordinates!["longitude"] as? Double
+                if( (lat != nil) && (long != nil)){
+                    self.latitude = lat
+                    self.longitude = long
+                }//end lat & long != nil
+                /*self.coordinate = coordinates*/
+                
+            }//end if coordinates != nil
         }
         self.address = address
         
