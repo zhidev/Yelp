@@ -8,8 +8,9 @@
 //
 
 import UIKit
+import AFNetworking
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIScrollViewDelegate {
 
     var businesses: [Business]!	
     @IBOutlet var tableView: UITableView!
@@ -18,6 +19,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     var searchBar: UISearchBar?
     var searchController: UISearchController?
+    var offset: Int = 20
+    var isMoreDataLoading = false
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,18 +43,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.estimatedRowHeight = 120
         
         
-        Business.searchWithTerm("", completion: { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            self.filteredBusinesses = self.businesses
-
-            self.tableView.reloadData()
-            
-            
-            for business in businesses {
-                print(business.name!)
-                print(business.address!)
-            }
-        })
+        loadData()
 
 /* Example of Yelp search with more search options specified
         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -114,6 +107,66 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
     }
+    
+    func loadData(){
+        Business.searchWithTerm("", completion: { (businesses: [Business]!, error: NSError!) -> Void in
+            print("Beep Boop")
+            if businesses != nil{
+                self.businesses = businesses
+                self.filteredBusinesses = self.businesses // I guess i keep this?
+                
+                
+                self.tableView.reloadData()
+                /*for business in businesses {
+                    
+                    print(business.name!)
+                    print(business.address!)
+                }*/
+                print("BUSINESS COUNT: \(businesses.count)")
+            }
+        })
+    }
+    
+    /* Infinite scroll */
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            //isMoreDataLoading = true
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollViewOffset = scrollViewContentHeight - tableView.bounds.height
+            // ... Code to load more results ...
+            print("1 : \(scrollViewContentHeight)")
+            print("2 : \(scrollViewOffset)")
+            print("3: \(tableView.bounds.height)")
+            //if(scrollView.contentOffset.y == scrollViewOffset){// && tableView.dragging) {
+            if(tableView.contentOffset.y >= (tableView.contentSize.height - tableView.frame.size.height)){
+                print("Starting the infinite scroll view")
+                isMoreDataLoading = true
+                loadMoreData()
+            }
+        }
+    }
+    /* Load More Data */
+    
+    func loadMoreData(){
+        Business.searchWithTerm("", offset: offset, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+            print("LoadMoreData")
+            if businesses != nil{
+                self.businesses.appendContentsOf(businesses)
+                self.filteredBusinesses = self.businesses
+                self.isMoreDataLoading = false
+                self.tableView.reloadData()
+                self.offset += 20
+                /*for business in businesses {
+                    
+                    print(business.name!)
+                    print(business.address!)
+                }*/
+                print("BUSINESS COUNT AFTER ADDING: \(businesses.count)")
+            }
+        })
+    }
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "detailed"{
             let indexPath = sender

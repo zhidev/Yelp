@@ -56,7 +56,7 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         return searchWithTerm(term, sort: nil, categories: nil, deals: nil, completion: completion)
     }
     
-    func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
+    func searchWithTerm(term: String, sort: YelpSortMode?,  categories: [String]?, deals: Bool?, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
         // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
 
         // Default the location to San Francisco
@@ -79,10 +79,58 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         return self.GET("search", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let dictionaries = response["businesses"] as? [NSDictionary]
             if dictionaries != nil {
+                print(dictionaries)
                 completion(Business.businesses(array: dictionaries!), nil)
             }
+
             }, failure: { (operation: AFHTTPRequestOperation?, error: NSError!) -> Void in
+                print(error?.localizedDescription)
                 completion(nil, error)
         })!
     }
+    
+    
+    /* Infinite Scroll & Load */
+    func searchWithTerm(term: String, offset: Int, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
+        return searchWithTerm(term, sort: nil, categories: nil, offset: offset, deals: nil, completion: completion)
+    }
+    
+    
+    func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, offset: Int?, deals: Bool?, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
+        // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
+        
+        // Default the location to San Francisco
+        var parameters: [String : AnyObject] = ["term": term, "ll": "37.785771,-122.406165"]
+        
+        if sort != nil {
+            parameters["sort"] = sort!.rawValue
+        }
+        
+        if categories != nil && categories!.count > 0 {
+            parameters["category_filter"] = (categories!).joinWithSeparator(",")
+        }
+        
+        if deals != nil {
+            parameters["deals_filter"] = deals!
+        }
+        
+        if offset != nil{
+            parameters["offset"] = offset
+        }
+        
+        parameters["limit"] = 20
+        print(parameters)
+        
+        return self.GET("search", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            let dictionaries = response["businesses"] as? [NSDictionary]
+            if dictionaries != nil {
+                completion(Business.businesses(array: dictionaries!), nil)
+            }
+            
+            }, failure: { (operation: AFHTTPRequestOperation?, error: NSError!) -> Void in
+                print(error?.localizedDescription)
+                completion(nil, error)
+        })!
+    }
+    
 }
