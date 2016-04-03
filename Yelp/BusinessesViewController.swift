@@ -132,15 +132,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     /* Infinite scroll */
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if (!isMoreDataLoading) {
-            print("Potato")
-            //isMoreDataLoading = true
-            let scrollViewContentHeight = tableView.contentSize.height
-            let scrollViewOffset = scrollViewContentHeight - tableView.bounds.height
-            // ... Code to load more results ...
-            print("1 : \(scrollViewContentHeight)")
-            print("2 : \(scrollViewOffset)")
-            print("3: \(tableView.bounds.height)")
-            //if(scrollView.contentOffset.y == scrollViewOffset){// && tableView.dragging) {
+            /* If we reach the bottom of the table view */
             if(tableView.contentOffset.y >= (tableView.contentSize.height - tableView.frame.size.height)){
                 print("Starting the infinite scroll view")
                 isMoreDataLoading = true
