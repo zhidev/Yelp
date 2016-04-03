@@ -34,6 +34,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         self.searchController.delegate = self
         self.searchController.searchBar.delegate = self
         */
+        
         navigationItem.titleView = searchBar
         
         searchBar!.delegate = self
@@ -115,8 +116,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                 self.businesses = businesses
                 self.filteredBusinesses = self.businesses // I guess i keep this?
                 
-                
                 self.tableView.reloadData()
+                self.isMoreDataLoading = false
+
                 /*for business in businesses {
                     
                     print(business.name!)
@@ -130,6 +132,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     /* Infinite scroll */
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if (!isMoreDataLoading) {
+            print("Potato")
             //isMoreDataLoading = true
             let scrollViewContentHeight = tableView.contentSize.height
             let scrollViewOffset = scrollViewContentHeight - tableView.bounds.height
@@ -148,6 +151,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     /* Load More Data */
     
     func loadMoreData(){
+        if(businesses != nil){
         Business.searchWithTerm("", offset: offset, completion: { (businesses: [Business]!, error: NSError!) -> Void in
             print("LoadMoreData")
             if businesses != nil{
@@ -164,6 +168,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                 print("BUSINESS COUNT AFTER ADDING: \(businesses.count)")
             }
         })
+        }
     }
     
     
