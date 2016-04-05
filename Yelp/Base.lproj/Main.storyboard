@@ -197,6 +197,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubR-Aa-m80">
+                                <rect key="frame" x="139" y="452" width="44" height="30"/>
+                                <state key="normal" title="Keepo"/>
+                                <connections>
+                                    <segue destination="LeK-aE-x1Y" kind="push" id="xH3-zc-lbT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -233,6 +240,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4N-Ed-jnz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1675" y="255"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="ciJ-bo-j4B">
+            <objects>
+                <viewController id="LeK-aE-x1Y" customClass="MapViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uya-Pb-0SV"/>
+                        <viewControllerLayoutGuide type="bottom" id="Gzm-mQ-lJI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NFU-V2-rcN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="92K-6b-0bY">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="92K-6b-0bY" firstAttribute="top" secondItem="uya-Pb-0SV" secondAttribute="bottom" id="HOD-pj-Zoq"/>
+                            <constraint firstAttribute="trailing" secondItem="92K-6b-0bY" secondAttribute="trailing" id="Nix-d4-uaz"/>
+                            <constraint firstItem="Gzm-mQ-lJI" firstAttribute="top" secondItem="92K-6b-0bY" secondAttribute="bottom" id="qQN-5h-Ac6"/>
+                            <constraint firstItem="92K-6b-0bY" firstAttribute="leading" secondItem="NFU-V2-rcN" secondAttribute="leading" id="wfF-8E-5xO"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="sZ6-Dk-kFE"/>
+                    <connections>
+                        <outlet property="mapView" destination="92K-6b-0bY" id="vbv-TO-qtV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DZc-BY-jey" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1675" y="933"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="0yw-1u-XC3">

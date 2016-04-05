@@ -9,6 +9,9 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
+
+
 
 class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIScrollViewDelegate {
 
@@ -49,11 +52,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
 /* Example of Yelp search with more search options specified
         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
-            
-            for business in businesses {
-                print(business.name!)
-                print(business.address!)
-            }
         }
 */
     }
@@ -110,21 +108,16 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func loadData(){
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         Business.searchWithTerm("", completion: { (businesses: [Business]!, error: NSError!) -> Void in
-            print("Beep Boop")
             if businesses != nil{
                 self.businesses = businesses
-                self.filteredBusinesses = self.businesses // I guess i keep this?
+                self.filteredBusinesses = self.businesses
                 
                 self.tableView.reloadData()
                 self.isMoreDataLoading = false
-
-                /*for business in businesses {
-                    
-                    print(business.name!)
-                    print(business.address!)
-                }*/
-                print("BUSINESS COUNT: \(businesses.count)")
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                print("BUSINESS COUNT: \(self.businesses.count)")
             }
         })
     }
@@ -134,7 +127,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         if (!isMoreDataLoading) {
             /* If we reach the bottom of the table view */
             if(tableView.contentOffset.y >= (tableView.contentSize.height - tableView.frame.size.height)){
-                print("Starting the infinite scroll view")
                 isMoreDataLoading = true
                 loadMoreData()
             }
@@ -144,7 +136,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     func loadMoreData(){
         if(businesses != nil){
-        Business.searchWithTerm("", offset: offset, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            Business.searchWithTerm("", offset: offset, completion: { (businesses: [Business]!, error: NSError!) -> Void in
             print("LoadMoreData")
             if businesses != nil{
                 self.businesses.appendContentsOf(businesses)
@@ -152,12 +145,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                 self.isMoreDataLoading = false
                 self.tableView.reloadData()
                 self.offset += 20
-                /*for business in businesses {
-                    
-                    print(business.name!)
-                    print(business.address!)
-                }*/
-                print("BUSINESS COUNT AFTER ADDING: \(businesses.count)")
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                print("BUSINESS COUNT AFTER ADDING: \(self.businesses.count)")
             }
         })
         }
@@ -170,7 +159,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             let detailedVC = segue.destinationViewController as! DetailedViewController
             let selected = filteredBusinesses![indexPath!.row]
             detailedVC.dbusiness = selected
-            print("detailed potato")
         }
     }
 }

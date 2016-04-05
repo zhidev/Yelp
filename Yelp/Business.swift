@@ -121,5 +121,10 @@ class Business: NSObject {
     class func searchWithTerm(term: String, offset: Int, completion: ([Business]!, NSError!) -> Void) {
         YelpClient.sharedInstance.searchWithTerm(term, offset: offset, completion: completion)
     }
-    
+    /* Map View */
+    class func mapSearchWithTerm(term: String, latitude: NSNumber?, longitude: NSNumber?, categories: [String]?, completion: ([Business]!, error: NSError!) -> Void) -> Void {
+        print("UGH")
+        YelpClient.sharedInstance.searchWithTerm(term, latitude: latitude, longitude: longitude, sort: YelpSortMode.Distance, categories: categories, offset: 0, deals: false, completion: completion)
+        print("Potato")
+    }
 }

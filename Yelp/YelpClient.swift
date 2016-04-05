@@ -92,10 +92,10 @@ class YelpClient: BDBOAuth1RequestOperationManager {
     
     /* Infinite Scroll & Load */
     func searchWithTerm(term: String, offset: Int, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
-        return searchWithTerm(term, sort: nil, categories: nil, offset: offset, deals: nil, completion: completion)
+        return searchWithTerm(term, latitude: nil, longitude: nil, sort: nil, categories: nil, offset: offset, deals: nil, completion: completion)
     }
     
-    
+    /*
     func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, offset: Int?, deals: Bool?, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
         // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
         
@@ -131,6 +131,64 @@ class YelpClient: BDBOAuth1RequestOperationManager {
                 print(error?.localizedDescription)
                 completion(nil, error)
         })!
+    }*/
+    
+    func searchWithTerm(term: String, latitude: NSNumber?, longitude: NSNumber?, sort: YelpSortMode?, categories: [String]?, offset: Int?, deals: Bool?, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
+        // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
+        
+        var inLat: Double!
+        var inLong: Double!
+        
+        // Default the location to San Francisco if no lat and long
+        if let newLat = latitude{
+            if let newLong = longitude{
+                inLat = newLat as Double
+                inLong = newLong as Double
+            }else{
+                inLat = 37.785771
+                inLong = -122.406165
+            }
+        }else{
+            inLat = 37.785771
+            inLong = -122.406165
+        }
+        
+        
+        
+        var parameters: [String : AnyObject] = ["term": term, "ll": "\(inLat),\(inLong)"]
+        
+        if sort != nil {
+            parameters["sort"] = sort!.rawValue
+        }
+        
+        if categories != nil && categories!.count > 0 {
+            parameters["category_filter"] = (categories!).joinWithSeparator(",")
+        }
+        
+        if deals != nil {
+            parameters["deals_filter"] = deals!
+        }
+        
+        if offset != nil{
+            parameters["offset"] = offset
+        }
+        
+        parameters["limit"] = 20
+        print(parameters)
+        
+        return self.GET("search", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            let dictionaries = response["businesses"] as? [NSDictionary]
+            if dictionaries != nil {
+                print("DICTIONARY HAS VALUE(FOR MAP IMPLEMENTATION")
+                print(dictionaries)
+                completion(Business.businesses(array: dictionaries!), nil)
+            }
+            
+            }, failure: { (operation: AFHTTPRequestOperation?, error: NSError!) -> Void in
+                print(error?.localizedDescription)
+                completion(nil, error)
+        })!
     }
+    
     
 }
