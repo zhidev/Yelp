@@ -15,7 +15,7 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [x] Search results page
-- [ ] Infinite scroll for restaurant results.
+- [x] Infinite scroll for restaurant results.
 - [x] Implement map view of restaurant results.
 - [x] Implement the restaurant detail page.
 
@@ -57,3 +57,14 @@ Describe any challenges encountered while building the app.
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+## P1.0
+
+- [x] Infinite scroll + fetch more data
+- [x] Map View of restaurants around current user location
+- [x] Fixed auto layout constraints
+- [x] Added a sidebar menu to swap between search results and map of around user
+- [x] Lots of code refactoring / patching up, wrapping user location privacy settings around alerts
+
+
+![walkthrough](YelpP1.0.gif)
