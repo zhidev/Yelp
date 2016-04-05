@@ -68,3 +68,5 @@ Describe any challenges encountered while building the app.
 
 
 ![walkthrough](YelpP1.0.gif)
+
+No Yelp app on simulator, the end of the gif is the same as the previous gif on this readme
